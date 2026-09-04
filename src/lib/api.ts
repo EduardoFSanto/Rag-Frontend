@@ -40,6 +40,20 @@ export interface SectorMembership extends Sector {
   role: "member" | "editor" | "admin";
 }
 
+export interface AdminUser {
+  id: string;
+  name: string;
+  email: string;
+  role: "user" | "admin";
+  createdAt: string;
+  memberships: Array<{
+    sectorId: string;
+    sectorName: string;
+    sectorSlug: string;
+    membershipRole: "member" | "editor" | "admin";
+  }>;
+}
+
 export interface AskResponse {
   conversationId: string;
   answer: string;
@@ -89,6 +103,17 @@ export const api = {
     }),
 
   listSectors: () => fetchApi<{ sectors: Sector[]; memberships: SectorMembership[] }>("/api/sectors"),
+
+  listAdminUsers: () => fetchApi<AdminUser[]>("/api/admin/users"),
+
+  updateUserRole: (userId: string, role: "user" | "admin") =>
+    fetchApi<void>(`/api/admin/users/${userId}`, { method: "PATCH", body: JSON.stringify({ role }) }),
+
+  addSectorMember: (sectorId: string, userId: string, role: "member" | "editor" | "admin") =>
+    fetchApi<void>(`/api/sectors/${sectorId}/members`, { method: "POST", body: JSON.stringify({ userId, role }) }),
+
+  removeSectorMember: (sectorId: string, userId: string) =>
+    fetchApi<void>(`/api/sectors/${sectorId}/members`, { method: "DELETE", body: JSON.stringify({ userId }) }),
 
   uploadDocument: async (file: File, options: { visibility: "private" | "sector" | "company"; sectorIds: string[] }) => {
     const formData = new FormData();

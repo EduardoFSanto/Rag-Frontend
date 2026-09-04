@@ -5,7 +5,7 @@ import type { ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BookOpen, LogOut, Menu, MessageSquare, Sparkles, X } from "lucide-react";
+import { BookOpen, LogOut, Menu, MessageSquare, Settings2, Sparkles, X } from "lucide-react";
 import { useSession, signOut } from "@/lib/auth-client";
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
@@ -33,6 +33,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
   const navigation = [
     { href: "/chat", label: "Assistente", icon: MessageSquare },
     { href: "/documents", label: "Conhecimento", icon: BookOpen },
+    ...((session.user as { role?: string }).role === "admin" ? [{ href: "/admin", label: "Administração", icon: Settings2 }] : []),
   ];
 
   return (
