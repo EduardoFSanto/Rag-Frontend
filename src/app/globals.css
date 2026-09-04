@@ -1,0 +1,143 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-body);
+  --font-heading: var(--font-display);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  --background: oklch(0.975 0.012 90);
+  --foreground: oklch(0.23 0.035 225);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.23 0.035 225);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.23 0.035 225);
+  --primary: oklch(0.68 0.14 78);
+  --primary-foreground: oklch(0.2 0.035 225);
+  --secondary: oklch(0.94 0.018 90);
+  --secondary-foreground: oklch(0.29 0.04 225);
+  --muted: oklch(0.94 0.018 90);
+  --muted-foreground: oklch(0.52 0.035 225);
+  --accent: oklch(0.42 0.09 185);
+  --accent-foreground: oklch(0.99 0.005 90);
+  --destructive: oklch(0.58 0.2 28);
+  --border: oklch(0.23 0.035 225 / 12%);
+  --input: oklch(0.23 0.035 225 / 14%);
+  --ring: oklch(0.68 0.14 78);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.955 0.018 180);
+  --sidebar-foreground: oklch(0.23 0.035 225);
+  --sidebar-primary: oklch(0.68 0.14 78);
+  --sidebar-primary-foreground: oklch(0.2 0.035 225);
+  --sidebar-accent: oklch(0.9 0.035 180);
+  --sidebar-accent-foreground: oklch(0.25 0.05 210);
+  --sidebar-border: oklch(0.23 0.035 225 / 10%);
+  --sidebar-ring: oklch(0.68 0.14 78);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    background-image: radial-gradient(circle at 88% 0%, oklch(0.86 0.08 82 / 28%), transparent 30rem), linear-gradient(135deg, oklch(0.98 0.012 90), oklch(0.95 0.025 180));
+    background-attachment: fixed;
+  }
+  html {
+    @apply font-sans;
+  }
+
+  .auth-input {
+    @apply h-12 w-full rounded-xl border border-slate-900/15 bg-white px-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-[var(--primary)] focus:bg-white;
+  }
+}
+
+@layer utilities {
+  .light-content [class*="border-white"] {
+    border-color: oklch(0.23 0.035 225 / 12%);
+  }
+
+  .light-content [class*="bg-white/"] {
+    background-color: oklch(1 0 0 / 78%);
+  }
+
+  .light-content [class*="bg-white/10"] {
+    background-color: oklch(0.9 0.035 180);
+    color: oklch(0.23 0.035 225);
+  }
+
+  .light-content [class*="text-white/80"] {
+    color: oklch(0.3 0.04 225);
+  }
+
+  .light-content [class*="text-white/90"] {
+    color: oklch(0.3 0.04 225);
+  }
+
+  .light-content article div[class*="bg-[var(--accent)]"] p {
+    color: white;
+  }
+
+  .light-content textarea {
+    color: oklch(0.23 0.035 225);
+  }
+
+  .light-content textarea::placeholder {
+    color: oklch(0.52 0.035 225 / 70%);
+  }
+
+  main form.rounded-3xl,
+  main div.rounded-3xl {
+    border-color: oklch(0.23 0.035 225 / 10%);
+    background-color: oklch(1 0 0 / 85%);
+  }
+}
