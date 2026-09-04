@@ -26,7 +26,18 @@ export interface DocumentSummary {
   filename: string;
   fileSize: number;
   status: "processing" | "processed" | "failed";
+  visibility: "private" | "sector" | "company";
   createdAt: string;
+}
+
+export interface Sector {
+  id: string;
+  slug: string;
+  name: string;
+}
+
+export interface SectorMembership extends Sector {
+  role: "member" | "editor" | "admin";
 }
 
 export interface AskResponse {
@@ -77,9 +88,13 @@ export const api = {
       body: JSON.stringify({ question, conversationId }),
     }),
 
-  uploadDocument: async (file: File) => {
+  listSectors: () => fetchApi<{ sectors: Sector[]; memberships: SectorMembership[] }>("/api/sectors"),
+
+  uploadDocument: async (file: File, options: { visibility: "private" | "sector" | "company"; sectorIds: string[] }) => {
     const formData = new FormData();
     formData.append("file", file);
+    formData.append("visibility", options.visibility);
+    formData.append("sectorIds", JSON.stringify(options.sectorIds));
 
     const response = await fetch(`${API_URL}/api/documents/upload`, {
       method: "POST",
