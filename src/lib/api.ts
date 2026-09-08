@@ -24,6 +24,9 @@ export interface ChatMessage {
 export interface DocumentSummary {
   id: string;
   filename: string;
+  sourceType: "file" | "youtube";
+  sourceUrl?: string | null;
+  durationSeconds?: number | null;
   fileSize: number;
   status: "processing" | "processed" | "failed";
   visibility: "private" | "sector" | "company";
@@ -140,6 +143,12 @@ export const api = {
 
     return result.data;
   },
+
+  importYoutubeVideo: (url: string, visibility: "private" | "company" = "private") =>
+    fetchApi<{ documentId: string; title: string; videoUrl: string; transcriptSource: "captions" | "whisper" }>("/api/videos/import", {
+      method: "POST",
+      body: JSON.stringify({ url, visibility }),
+    }),
 
   listDocuments: () => fetchApi<DocumentSummary[]>("/api/documents"),
 
